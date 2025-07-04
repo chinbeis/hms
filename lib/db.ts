@@ -10,13 +10,7 @@ import {
 } from 'drizzle-orm/mysql-core';
 import { eq, ilike, sql } from 'drizzle-orm';
 
-const connection = mysql.createPool({
-    host: '127.0.0.1',
-    port: 3307,
-    user: 'root',
-    password: 'password',
-    database: 'hms'
-});
+const connection = mysql.createPool(process.env.DATABASE_URL!);
 
 export const db = drizzle(connection);
 
