@@ -1,46 +1,31 @@
 'use client';
 
-import { useEffect } from 'react';
+import { Button } from '@/components/ui/button';
 
 export default function Error({
   error,
-  reset
+  reset,
 }: {
   error: Error & { digest?: string };
   reset: () => void;
 }) {
-  useEffect(() => {
-    // Log the error to an error reporting service
-    console.error(error);
-  }, [error]);
-
   return (
-    <main className="p-4 md:p-6">
-      <div className="mb-8 space-y-4">
-        <h1 className="font-semibold text-lg md:text-2xl">
-          Please complete setup
-        </h1>
-        <p>
-          Inside the Vercel Postgres dashboard, create a table based on the
-          schema defined in this repository.
-        </p>
-        <pre className="my-4 px-3 py-4 bg-black text-white rounded-lg max-w-2xl overflow-scroll flex text-wrap">
-          <code>
-            {`CREATE TABLE users (
-  id SERIAL PRIMARY KEY,
-  email VARCHAR(255) NOT NULL,
-  name VARCHAR(255),
-  username VARCHAR(255)
-);`}
-          </code>
-        </pre>
-        <p>Insert a row for testing:</p>
-        <pre className="my-4 px-3 py-4 bg-black text-white rounded-lg max-w-2xl overflow-scroll flex text-wrap">
-          <code>
-            {`INSERT INTO users (id, email, name, username) VALUES (1, 'me@site.com', 'Me', 'username');`}
-          </code>
-        </pre>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
+      <div className="max-w-md p-8 bg-white rounded-lg shadow-lg dark:bg-gray-800">
+        <div className="flex flex-col items-center">
+          <h1 className="text-9xl font-bold text-gray-800 dark:text-gray-100">500</h1>
+          <h2 className="mt-4 text-2xl font-semibold text-gray-600 dark:text-gray-300">Oops! Something went wrong.</h2>
+          <p className="mt-2 text-center text-gray-500 dark:text-gray-400">
+            We are sorry, but it seems there is an internal server error. Please try again later.
+          </p>
+          <Button
+            onClick={() => reset()}
+            className="mt-6 px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          >
+            Try again
+          </Button>
+        </div>
       </div>
-    </main>
+    </div>
   );
 }
